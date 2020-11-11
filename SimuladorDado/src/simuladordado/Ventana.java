@@ -22,6 +22,8 @@ public class Ventana extends javax.swing.JFrame {
      */
     public Ventana() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.fncInsertarPicture(this.panelImgCaras, "/Imagenes/"+ 1 +".GIF", true);
     }
 
     /**
@@ -33,7 +35,7 @@ public class Ventana extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        panelBackground = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblResultado = new javax.swing.JTable();
@@ -43,20 +45,22 @@ public class Ventana extends javax.swing.JFrame {
         btnGuardar = new javax.swing.JButton();
         btnNuevo = new javax.swing.JButton();
         btnInforme = new javax.swing.JButton();
-        btnCara = new javax.swing.JButton();
+        panelImgCaras = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Caras");
+        panelBackground.setBackground(new java.awt.Color(0, 153, 153));
+
+        jLabel1.setText("Dado");
 
         tblResultado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"1", "", "", null},
-                {"2", null, null, null},
-                {"3", null, null, null},
-                {"4", null, null, null},
-                {"5", null, null, null},
-                {"6", null, null, null}
+                {"2", "", null, null},
+                {"3", "", null, null},
+                {"4", "", null, null},
+                {"5", "", null, null},
+                {"6", "", null, null}
             },
             new String [] {
                 "Cara", "ni", "fi", "Fi"
@@ -71,6 +75,8 @@ public class Ventana extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(listResultadosCaras);
 
+        bntIniciar.setBackground(new java.awt.Color(153, 51, 0));
+        bntIniciar.setForeground(new java.awt.Color(255, 255, 255));
         bntIniciar.setText("Iniciar");
         bntIniciar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
@@ -78,59 +84,72 @@ public class Ventana extends javax.swing.JFrame {
             }
         });
 
+        btnGuardar.setBackground(new java.awt.Color(0, 51, 153));
+        btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
         btnGuardar.setText("Guardar");
 
+        btnNuevo.setBackground(new java.awt.Color(255, 255, 255));
         btnNuevo.setText("Nuevo");
 
+        btnInforme.setBackground(new java.awt.Color(255, 204, 0));
+        btnInforme.setForeground(new java.awt.Color(255, 255, 255));
         btnInforme.setText("Informe");
 
-        btnCara.setEnabled(false);
+        panelImgCaras.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(62, 62, 62)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnInforme, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE))
-                            .addComponent(btnNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
-                            .addComponent(bntIniciar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnCara, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        javax.swing.GroupLayout panelImgCarasLayout = new javax.swing.GroupLayout(panelImgCaras);
+        panelImgCaras.setLayout(panelImgCarasLayout);
+        panelImgCarasLayout.setHorizontalGroup(
+            panelImgCarasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 132, Short.MAX_VALUE)
+        );
+        panelImgCarasLayout.setVerticalGroup(
+            panelImgCarasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout panelBackgroundLayout = new javax.swing.GroupLayout(panelBackground);
+        panelBackground.setLayout(panelBackgroundLayout);
+        panelBackgroundLayout.setHorizontalGroup(
+            panelBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBackgroundLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelBackgroundLayout.createSequentialGroup()
+                                .addGap(54, 54, 54)
+                                .addComponent(jLabel1))
+                            .addComponent(panelImgCaras, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bntIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnInforme, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        panelBackgroundLayout.setVerticalGroup(
+            panelBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBackgroundLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(panelBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane2)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnCara, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBackgroundLayout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(panelImgCaras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bntIniciar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnGuardar)
-                        .addGap(18, 18, 18)
                         .addComponent(btnNuevo)
                         .addGap(18, 18, 18)
+                        .addComponent(bntIniciar)
+                        .addGap(18, 18, 18)
                         .addComponent(btnInforme)
-                        .addGap(10, 10, 10))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnGuardar))
                     .addComponent(jScrollPane1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -139,11 +158,11 @@ public class Ventana extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelBackground, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelBackground, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -153,11 +172,43 @@ public class Ventana extends javax.swing.JFrame {
         // TODO add your handling code here:
         int min=1, max=6;
         int cara = (int) ( (max-min+1)*Math.random()+min );
-        this.btnCara.setIcon(new ImageIcon( getClass().getResource("/Imagenes/"+ cara +".GIF" ) ));
+        this.fncInsertarPicture(this.panelImgCaras, "/Imagenes/"+ cara +".GIF", true);
+        
         this.modeloLista.addElement("Salio el dado con " +  cara + " caras.");
         this.listResultadosCaras.setModel(modeloLista);
+        this.contadorCaras( cara );
     }//GEN-LAST:event_bntIniciarMouseReleased
     
+    private void contadorCaras(int cara){      
+ 
+        for(int item = 0; item < 6; item++){
+            
+            if( cara == (item + 1) ) {
+                if( this.tblResultado.getValueAt(item,1).toString().isEmpty() || this.tblResultado.getValueAt(item,1) == null){
+                    this.tblResultado.setValueAt(0,item,1);
+                }
+
+                this.tblResultado.setValueAt( Integer.parseInt(this.tblResultado.getValueAt(item ,1).toString()) + 1, item, 1);
+                continue;
+            }
+            
+        }
+   
+    } 
+    
+    private void fncInsertarPicture(JPanel contenedor, String url, boolean vaciar){
+        
+        if(vaciar) contenedor.removeAll();
+        
+        ImageIcon icono = new ImageIcon( getClass().getResource(url) );
+        JLabel etiquetaImagen = new JLabel();
+        etiquetaImagen.setBounds(0, 0, contenedor.getWidth(), contenedor.getHeight());
+        etiquetaImagen.setIcon( new ImageIcon(icono.getImage().getScaledInstance(etiquetaImagen.getWidth(), etiquetaImagen.getHeight(), Image.SCALE_SMOOTH)) );
+        contenedor.add(etiquetaImagen);
+        
+        if(vaciar) contenedor.validate();
+        if(vaciar) contenedor.repaint();
+    }
     
     
     /**
@@ -197,15 +248,15 @@ public class Ventana extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bntIniciar;
-    private javax.swing.JButton btnCara;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnInforme;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JList<String> listResultadosCaras;
+    private javax.swing.JPanel panelBackground;
+    private javax.swing.JPanel panelImgCaras;
     private javax.swing.JTable tblResultado;
     // End of variables declaration//GEN-END:variables
    DefaultListModel modeloLista = new DefaultListModel();
