@@ -175,7 +175,7 @@ public class Ventana extends javax.swing.JFrame {
     private void bntIniciarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntIniciarMouseReleased
         // TODO add your handling code here:
 
-        for( int item =0; item < 1000; item++){
+        for( int item =0; item < 100; item++){
             int min=1, max=6;
             int cara = (int) ( (max-min+1)*Math.random()+min );
             this.intTotalDeResultados ++;
@@ -207,14 +207,7 @@ public class Ventana extends javax.swing.JFrame {
                 
                 double parse = Double.parseDouble(this.tblResultado.getValueAt(item ,1).toString()) / this.intTotalDeResultados;
                 this.tblResultado.setValueAt( String.format("%.2f", parse ) , item, 2);
-                
-                /*
-                System.out.print( this.tblResultado.getValueAt(item,2) );
-                System.out.print(" ::: Index = " +  (item) + " ::: Caras = " +  (item+1)  );
-                System.out.print(" ::: Valor = " + this.tblResultado.getValueAt(item,2).toString());
-                System.out.print(" ::: Tamaño = " + this.tblResultado.getValueAt(item,2).toString().length());
-                System.out.println(" ::: EsVacio = " + this.tblResultado.getValueAt(item,2).toString().isEmpty());
-                */
+
             }
 
         }
