@@ -132,11 +132,11 @@
                     </Column>
                     <Column editable="true" title="fi" type="java.lang.Object">
                       <Data value=""/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
+                      <Data value=""/>
+                      <Data value=""/>
+                      <Data value=""/>
+                      <Data value=""/>
+                      <Data value=""/>
                     </Column>
                     <Column editable="true" title="Fi" type="java.lang.Object"/>
                   </Table>

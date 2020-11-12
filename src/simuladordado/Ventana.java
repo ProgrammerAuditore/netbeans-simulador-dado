@@ -6,6 +6,9 @@
 package simuladordado;
 
 import java.awt.Image;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -56,11 +59,11 @@ public class Ventana extends javax.swing.JFrame {
         tblResultado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"1", "", "", null},
-                {"2", "", null, null},
-                {"3", "", null, null},
-                {"4", "", null, null},
-                {"5", "", null, null},
-                {"6", "", null, null}
+                {"2", "", "", null},
+                {"3", "", "", null},
+                {"4", "", "", null},
+                {"5", "", "", null},
+                {"6", "", "", null}
             },
             new String [] {
                 "Cara", "ni", "fi", "Fi"
@@ -171,27 +174,49 @@ public class Ventana extends javax.swing.JFrame {
 
     private void bntIniciarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntIniciarMouseReleased
         // TODO add your handling code here:
-        int min=1, max=6;
-        int cara = (int) ( (max-min+1)*Math.random()+min );
-        this.fncInsertarPicture(this.panelImgCaras, "/Imagenes/"+ cara +".GIF", true);
+
+        for( int item =0; item < 1000; item++){
+            int min=1, max=6;
+            int cara = (int) ( (max-min+1)*Math.random()+min );
+            this.intTotalDeResultados ++;
+            this.fncInsertarPicture(this.panelImgCaras, "/Imagenes/"+ cara +".GIF", true);
+
+            this.modeloLista.addElement("Salio el dado con " +  cara + " caras.");
+            this.listResultadosCaras.setModel(modeloLista);
+            this.contadorCaras( cara );
+            System.out.println("Total: " + this.intTotalDeResultados);
+        }
         
-        this.modeloLista.addElement("Salio el dado con " +  cara + " caras.");
-        this.listResultadosCaras.setModel(modeloLista);
-        this.contadorCaras( cara );
     }//GEN-LAST:event_bntIniciarMouseReleased
     
     private void contadorCaras(int cara){      
- 
+        
         for(int item = 0; item < 6; item++){
  
             if( cara == (item + 1) ) {
-                if( this.tblResultado.getValueAt(item,1).toString().isEmpty() || this.tblResultado.getValueAt(item,1) == null){
+                if( this.tblResultado.getValueAt(item,1).toString().isEmpty() ){
                     this.tblResultado.setValueAt(0,item,1);
                 }
 
                 this.tblResultado.setValueAt( Integer.parseInt(this.tblResultado.getValueAt(item ,1).toString()) + 1, item, 1);
             }
             
+             if( cara == (item + 1) ) {
+                if( this.tblResultado.getValueAt(item,2).toString().isEmpty())
+                    this.tblResultado.setValueAt(0,item,2);
+                
+                double parse = Double.parseDouble(this.tblResultado.getValueAt(item ,1).toString()) / this.intTotalDeResultados;
+                this.tblResultado.setValueAt( String.format("%.2f", parse ) , item, 2);
+                
+                /*
+                System.out.print( this.tblResultado.getValueAt(item,2) );
+                System.out.print(" ::: Index = " +  (item) + " ::: Caras = " +  (item+1)  );
+                System.out.print(" ::: Valor = " + this.tblResultado.getValueAt(item,2).toString());
+                System.out.print(" ::: Tamaño = " + this.tblResultado.getValueAt(item,2).toString().length());
+                System.out.println(" ::: EsVacio = " + this.tblResultado.getValueAt(item,2).toString().isEmpty());
+                */
+            }
+
         }
    
     } 
@@ -259,5 +284,6 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JPanel panelImgCaras;
     private javax.swing.JTable tblResultado;
     // End of variables declaration//GEN-END:variables
-   DefaultListModel modeloLista = new DefaultListModel();
+   private DefaultListModel modeloLista = new DefaultListModel();
+   private int intTotalDeResultados;
 }
