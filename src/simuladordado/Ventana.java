@@ -6,13 +6,18 @@
 package simuladordado;
 
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.Timer;
+import java.sql.*;
 
 /**
  *
@@ -90,6 +95,11 @@ public class Ventana extends javax.swing.JFrame {
         btnGuardar.setBackground(new java.awt.Color(0, 51, 153));
         btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
         btnGuardar.setText("Guardar");
+        btnGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnGuardarMousePressed(evt);
+            }
+        });
 
         btnNuevo.setBackground(new java.awt.Color(255, 255, 255));
         btnNuevo.setText("Nuevo");
@@ -174,45 +184,92 @@ public class Ventana extends javax.swing.JFrame {
 
     private void bntIniciarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bntIniciarMouseReleased
         // TODO add your handling code here:
+        
+        ActionListener tarea = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int min=1, max=6;
+                int cara = (int) ( (max-min+1)*Math.random()+min );
+                intTotalDeResultados ++;
+                fncInsertarPicture(panelImgCaras, "/Imagenes/"+ cara +".GIF", true);
 
-        for( int item =0; item < 100; item++){
-            int min=1, max=6;
-            int cara = (int) ( (max-min+1)*Math.random()+min );
-            this.intTotalDeResultados ++;
-            this.fncInsertarPicture(this.panelImgCaras, "/Imagenes/"+ cara +".GIF", true);
+                modeloLista.addElement("Salio el dado con " +  cara + " caras.");
+                listResultadosCaras.setModel(modeloLista);
+                contadorCaras( cara );
+                System.out.println("Total: " + intTotalDeResultados);
+            }
+        };
+        
+        tiempo.addActionListener(tarea);
+        tiempo.start();
+     
+    }//GEN-LAST:event_bntIniciarMouseReleased
 
-            this.modeloLista.addElement("Salio el dado con " +  cara + " caras.");
-            this.listResultadosCaras.setModel(modeloLista);
-            this.contadorCaras( cara );
-            System.out.println("Total: " + this.intTotalDeResultados);
+    private void btnGuardarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMousePressed
+        // TODO add your handling code here:
+        tiempo.stop();
+        
+        try{
+            
+            for( int item=0; item < 6; item++ ){
+                Connection connect = DriverManager.getConnection("jdbc:mysql://localhost/bdva", "root", "");
+                PreparedStatement query = connect.prepareStatement("INSERT into tblva VALUES(?,?,?,?,?)");
+                
+                query.setString(1, "0" );
+                query.setString(2, this.tblResultado.getValueAt(item, 0).toString().trim() );
+                query.setString(3, this.tblResultado.getValueAt(item, 1).toString().trim() );
+                query.setString(4, this.tblResultado.getValueAt(item, 2).toString().trim() );
+                query.setString(5, this.tblResultado.getValueAt(item, 3).toString().trim() );
+                
+                query.executeUpdate();
+            }
+            
+            System.out.println("Datos registrados...");
+            
+        }catch(Exception e){
+            System.out.println("Error de mysql : " + e.getMessage());
         }
         
-    }//GEN-LAST:event_bntIniciarMouseReleased
+    }//GEN-LAST:event_btnGuardarMousePressed
     
     private void contadorCaras(int cara){      
         
         for(int item = 0; item < 6; item++){
- 
+            
+            if( this.tblResultado.getValueAt(item,1).toString().isEmpty()){
+                this.tblResultado.setValueAt(0,item,1);
+            }else if( this.tblResultado.getValueAt(item,2).toString().isEmpty()){
+                this.tblResultado.setValueAt(0,item,2);
+            }
+            
+            // Contador de caras
             if( cara == (item + 1) ) {
-                if( this.tblResultado.getValueAt(item,1).toString().isEmpty() ){
-                    this.tblResultado.setValueAt(0,item,1);
-                }
-
                 this.tblResultado.setValueAt( Integer.parseInt(this.tblResultado.getValueAt(item ,1).toString()) + 1, item, 1);
             }
             
-             if( cara == (item + 1) ) {
-                if( this.tblResultado.getValueAt(item,2).toString().isEmpty())
-                    this.tblResultado.setValueAt(0,item,2);
-                
-                double parse = Double.parseDouble(this.tblResultado.getValueAt(item ,1).toString()) / this.intTotalDeResultados;
-                this.tblResultado.setValueAt( String.format("%.2f", parse ) , item, 2);
-
-            }
+            // Frecuencia relativa
+            double parse = Double.parseDouble(this.tblResultado.getValueAt(item ,1).toString()) / this.intTotalDeResultados;
+            this.tblResultado.setValueAt( String.format("%.2f", parse ) , item, 2);
 
         }
-   
-    } 
+        
+        // Frecuencia relativa acumulada
+        this.tblResultado.setValueAt( String.format("%.2f", sumas(0) ), 0, 3);
+        this.tblResultado.setValueAt( String.format("%.2f", sumas(1) ), 1, 3);
+        this.tblResultado.setValueAt( String.format("%.2f", sumas(2) ), 2, 3);
+        this.tblResultado.setValueAt( String.format("%.2f", sumas(3) ), 3, 3);
+        this.tblResultado.setValueAt( String.format("%.2f", sumas(4) ), 4, 3);
+        this.tblResultado.setValueAt( String.format("%.2f", sumas(5) ), 5, 3);
+
+    }
+    
+    private double sumas(int items){
+        double suma = 0;
+        for(int item = 0; item <= items; item++){
+            suma += Double.parseDouble(this.tblResultado.getValueAt(item ,2).toString());
+        }
+        return suma;
+    }
     
     private void fncInsertarPicture(JPanel contenedor, String url, boolean vaciar){
         
@@ -279,4 +336,6 @@ public class Ventana extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
    private DefaultListModel modeloLista = new DefaultListModel();
    private int intTotalDeResultados;
+   private ActionListener escucha;
+   private Timer tiempo = new Timer(1000, escucha);
 }
