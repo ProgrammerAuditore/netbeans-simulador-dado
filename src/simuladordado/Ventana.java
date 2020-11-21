@@ -195,8 +195,7 @@ public class Ventana extends javax.swing.JFrame {
 
                 modeloLista.addElement("Salio el dado con " +  cara + " caras.");
                 listResultadosCaras.setModel(modeloLista);
-                contadorCaras( cara );
-                System.out.println("Total: " + intTotalDeResultados);
+                fncContador( cara );
             }
         };
         
@@ -232,7 +231,7 @@ public class Ventana extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnGuardarMousePressed
     
-    private void contadorCaras(int cara){      
+    private void fncContador(int cara){      
         
         for(int item = 0; item < 6; item++){
             
@@ -254,16 +253,16 @@ public class Ventana extends javax.swing.JFrame {
         }
         
         // Frecuencia relativa acumulada
-        this.tblResultado.setValueAt( String.format("%.2f", sumas(0) ), 0, 3);
-        this.tblResultado.setValueAt( String.format("%.2f", sumas(1) ), 1, 3);
-        this.tblResultado.setValueAt( String.format("%.2f", sumas(2) ), 2, 3);
-        this.tblResultado.setValueAt( String.format("%.2f", sumas(3) ), 3, 3);
-        this.tblResultado.setValueAt( String.format("%.2f", sumas(4) ), 4, 3);
-        this.tblResultado.setValueAt( String.format("%.2f", sumas(5) ), 5, 3);
+        this.tblResultado.setValueAt( String.format("%.2f", fncSumas(0) ), 0, 3);
+        this.tblResultado.setValueAt( String.format("%.2f", fncSumas(1) ), 1, 3);
+        this.tblResultado.setValueAt( String.format("%.2f", fncSumas(2) ), 2, 3);
+        this.tblResultado.setValueAt( String.format("%.2f", fncSumas(3) ), 3, 3);
+        this.tblResultado.setValueAt( String.format("%.2f", fncSumas(4) ), 4, 3);
+        this.tblResultado.setValueAt( String.format("%.2f", fncSumas(5) ), 5, 3);
 
     }
     
-    private double sumas(int items){
+    private double fncSumas(int items){
         double suma = 0;
         for(int item = 0; item <= items; item++){
             suma += Double.parseDouble(this.tblResultado.getValueAt(item ,2).toString());
