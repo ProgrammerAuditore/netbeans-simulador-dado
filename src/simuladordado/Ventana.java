@@ -110,6 +110,11 @@ public class Ventana extends javax.swing.JFrame {
 
         btnNuevo.setBackground(new java.awt.Color(255, 255, 255));
         btnNuevo.setText("Nuevo");
+        btnNuevo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnNuevoMouseReleased(evt);
+            }
+        });
 
         btnInforme.setBackground(new java.awt.Color(255, 204, 0));
         btnInforme.setForeground(new java.awt.Color(255, 255, 255));
@@ -239,9 +244,14 @@ public class Ventana extends javax.swing.JFrame {
         
             
         // Generar el reporte de los datos a la base de datos.
-        this.ReporteVA();
+        this.fncGenerarReporteVa();
         
     }//GEN-LAST:event_btnInformeMouseReleased
+
+    private void btnNuevoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNuevoMouseReleased
+        // TODO add your handling code here:
+        this.fncLimpiarTodo();
+    }//GEN-LAST:event_btnNuevoMouseReleased
      
     /**
      * @param args the command line arguments
@@ -297,7 +307,7 @@ public class Ventana extends javax.swing.JFrame {
    private Timer tiempo = new Timer(1000, escucha);
    private boolean Run = false;
    
-   public void ReporteVA(){
+   public void fncGenerarReporteVa(){
         File master=null;
         try {
             master = new File(getClass().getResource("rptva.jasper").toURI());
@@ -416,6 +426,10 @@ public class Ventana extends javax.swing.JFrame {
             
         } catch (Exception e) {
         }
+        
+    }
+
+    private void fncLimpiarTodo() {
         
     }
     

@@ -1,0 +1,12 @@
+public void GenerarReporte()
+    {
+        try {
+            JasperReport report = JasperCompileManager.compileReport(getClass().getResource("/Reportes/report.jrxml").getPath());
+            //System.out.print(getClass().getResource("reporte.jrxml").getPath());
+            JasperPrint print = JasperFillManager.fillReport(report, new HashMap(), this.conectar());
+            JasperViewer.viewReport(print, false);
+        } 
+        catch (JRException jRException) {
+            System.out.println(jRException.getMessage());
+        }
+    }
